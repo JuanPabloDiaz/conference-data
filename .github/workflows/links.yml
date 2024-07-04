@@ -1,9 +1,9 @@
 name: Broken Link Checker
 
 on:
-    pull_request:
-        branches:
-            - test # Change this to the branch to main later
+    # pull_request:
+    #     branches:
+    #         - test # Change this to the branch to main later
     # workflow_dispatch:
     # schedule:
     #     - cron: '00 18 * * *'
