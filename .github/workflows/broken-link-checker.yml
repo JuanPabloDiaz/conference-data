@@ -1,12 +1,13 @@
-# https://github.com/lycheeverse/lychee-action/
-
 name: Broken Link Checker
+
 on:
-    repository_dispatch:
-        types: [test]
-    workflow_dispatch:
-    schedule: # Run every day at 6pm
-        - cron: '00 18 * * *'
+    pull_request:
+        branches:
+            - test # Change this to the branch to main later
+    # workflow_dispatch:
+    # schedule:
+    #     - cron: '00 18 * * *'
+
 jobs:
     linkChecker:
         runs-on: ubuntu-latest
