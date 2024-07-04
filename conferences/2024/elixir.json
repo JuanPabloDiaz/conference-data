@@ -7,10 +7,38 @@
     "city": "A Coruña",
     "country": "Spain",
     "online": false,
+    "locales": "EN,ES,GL,PT",
+    "cocUrl": "https://codesync.global/about-us/#Conduct",
     "cfpUrl": "https://sessionize.com/code-beam-corunha-2024",
     "cfpEndDate": "2024-01-31",
-    "twitter": "@CodeBEAMCorunha",
+    "twitter": "@CodeBEAMCorunha"
+  },
+  {
+    "name": "RTC.On",
+    "url": "https://rtcon.live",
+    "startDate": "2024-09-11",
+    "endDate": "2024-09-13",
+    "city": "Kraków",
+    "country": "Poland",
+    "online": false,
+    "locales": "EN",
+    "cocUrl": "https://rtcon.live/code-of-conduct",
+    "cfpUrl": "https://docs.google.com/forms/d/e/1FAIpQLSel_6kQ6AXMAbtua6QjqfTAFiLauXSB0lHjl8uvd-wlTzzSwQ/viewform",
+    "cfpEndDate": "2024-06-28",
+    "twitter": "@ElixirMembrane"
+  },
+  {
+    "name": "Code BEAM Europe",
+    "url": "https://codebeameurope.com",
+    "startDate": "2024-10-14",
+    "endDate": "2024-10-15",
+    "city": "Berlin",
+    "country": "Germany",
+    "online": true,
+    "locales": "EN",
     "cocUrl": "https://codesync.global/about-us/#Conduct",
-    "locales": "EN,ES,GL,PT"
+    "cfpUrl": "https://sessionize.com/code-beam-europe-2024",
+    "cfpEndDate": "2024-05-28",
+    "twitter": "@codebeamio"
   }
 ]

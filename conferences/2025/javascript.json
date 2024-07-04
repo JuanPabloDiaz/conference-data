@@ -1,5 +1,43 @@
 [
   {
+    "name": "HalfStack Phoenix",
+    "url": "https://halfstackconf.com/phoenix",
+    "startDate": "2025-01-31",
+    "endDate": "2025-01-31",
+    "city": "Phoenix, AZ",
+    "country": "U.S.A.",
+    "cocUrl": "https://halfstackconf.com/code-of-conduct",
+    "cfpUrl": "https://halfstackconf.com/phoenix/",
+    "twitter": "@halfstackconf"
+  },
+  {
+    "name": "ConFoo Montreal",
+    "url": "https://confoo.ca/en/2025",
+    "startDate": "2025-02-26",
+    "endDate": "2025-02-28",
+    "city": "Montreal",
+    "country": "Canada",
+    "online": true,
+    "locales": "EN",
+    "cocUrl": "https://confoo.ca/en/code-of-conduct",
+    "twitter": "@confooca",
+    "mastodon": "@confooca@techhub.social"
+  },
+  {
+    "name": "Frontrunners",
+    "url": "https://frontrunners.tech",
+    "startDate": "2025-03-21",
+    "endDate": "2025-03-21",
+    "city": "Washington, DC",
+    "country": "U.S.A.",
+    "online": false,
+    "locales": "EN",
+    "cocUrl": "https://frontrunners.tech/conduct",
+    "cfpUrl": "https://www.papercall.io/frontrunners2025",
+    "cfpEndDate": "2024-11-15",
+    "twitter": "@frontrunnersdc"
+  },
+  {
     "name": "CityJS London",
     "url": "https://london.cityjsconf.org",
     "startDate": "2025-04-23",
@@ -7,21 +45,10 @@
     "city": "London",
     "country": "U.K.",
     "online": true,
+    "locales": "EN",
+    "cocUrl": "https://london.cityjsconf.org/coc",
     "cfpUrl": "https://london.cityjsconf.org/cfp",
     "cfpEndDate": "2024-12-31",
-    "twitter": "@cityjsconf",
-    "cocUrl": "https://london.cityjsconf.org/coc",
-    "locales": "EN"
-  },
-  {
-    "name": "HalfStack Phoenix",
-    "url": "https://halfstackconf.com/phoenix",
-    "startDate": "2025-01-31",
-    "endDate": "2025-01-31",
-    "city": "Phoenix, AZ",
-    "country": "U.S.A.",
-    "cfpUrl": "https://halfstackconf.com/phoenix/",
-    "twitter": "@halfstackconf",
-    "cocUrl": "https://halfstackconf.com/code-of-conduct"
+    "twitter": "@cityjsconf"
   }
 ]
