@@ -30,7 +30,7 @@ jobs:
               uses: lycheeverse/lychee-action@v1.10.0
               with:
                   fail: true
-                  args: '"./website/docs/**/*.md" "./website/docs/**/*.mdx" "./src/mailtemplates/*.mustache" --scheme http --scheme https --cache --max-cache-age 7d --exclude-mail --verbose' # other excludes are in .lycheeignore
+                  args: --verbose --no-progress './**/*.md' './**/*.html' './**/*.json' './**/*.rst' --exclude-mail
                   output: ${{ env.issue-content }}
 
             # Permissions (issues: read)
