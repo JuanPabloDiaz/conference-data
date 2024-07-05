@@ -3,9 +3,8 @@ name: Check links from PRs
 on:
     pull_request:
         branches:
-            - test # Change this to the branch to main later
-    schedule:
-        - cron: '30 12 * * 1-5'
+            - test # Cambia esto a la rama de prueba que estás usando
+    workflow_dispatch: # Para poder ejecutarlo manualmente si es necesario
 
 jobs:
     validate:
@@ -13,7 +12,6 @@ jobs:
         permissions:
             contents: read
             issues: write
-            pull-requests: write
         env:
             issue-lookup-label: automated-link-issue
             issue-content: ./lychee-out.md
@@ -24,6 +22,17 @@ jobs:
               id: changed-files
               run: |
                   echo "::set-output name=files::$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.json$')"
+
+            - name: Extract URLs from Changed Files
+              id: extract-urls
+              run: |
+                  mkdir -p temp
+                  for file in ${{ steps.changed-files.outputs.files }}; do
+                      jq -r '..|.url?|strings' $file >> temp/urls.txt
+                  done
+                  sort -u temp/urls.txt > temp/unique_urls.txt
+                  cat temp/unique_urls.txt
+              continue-on-error: true
 
             - name: Check for Changed Conference Files
               if: steps.changed-files.outputs.files
@@ -42,7 +51,7 @@ jobs:
               uses: lycheeverse/lychee-action@v1.10.0
               with:
                   fail: true
-                  args: --verbose --no-progress ${{ steps.changed-files.outputs.files }} --exclude-mail
+                  args: --verbose --no-progress --input ./temp/unique_urls.txt --exclude-mail
                   output: ${{ env.issue-content }}
 
             - name: 'Look for an existing issue'
@@ -63,25 +72,3 @@ jobs:
                   labels: |
                       ${{ env.issue-lookup-label }}
                       broken-link, docs
-
-            - name: 'Create PR to remove broken links'
-              if: ${{ failure() }}
-              run: |
-                  git config --global user.name 'github-actions[bot]'
-                  git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
-                  git checkout -b fix-broken-links-${{ github.sha }}
-                  for file in ${{ steps.changed-files.outputs.files }}; do
-                    sed -i '/http.*404/d' "$file"
-                  done
-                  git commit -am 'Remove broken conference links'
-                  git push origin fix-broken-links-${{ github.sha }}
-
-            - name: Create Pull Request
-              if: ${{ failure() }}
-              uses: peter-evans/create-pull-request@v4
-              with:
-                  commit-message: 'Remove broken conference links'
-                  branch: fix-broken-links-${{ github.sha }}
-                  title: 'Remove broken conference links'
-                  body: 'This PR removes broken conference links found in the upcoming conferences list.'
-                  labels: broken-link, docs
