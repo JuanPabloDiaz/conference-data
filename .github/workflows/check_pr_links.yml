@@ -3,8 +3,8 @@ name: Check links from PRs
 on:
     pull_request:
         branches:
-            - test # Cambia esto a la rama de prueba que estás usando
-    workflow_dispatch: # Para poder ejecutarlo manualmente si es necesario
+            - test
+    workflow_dispatch:
 
 jobs:
     validate:

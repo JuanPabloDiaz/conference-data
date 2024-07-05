@@ -3,7 +3,7 @@ name: Check links
 on:
     pull_request:
         branches:
-            - test # Change this to the branch to main later
+            - test
     # workflow_dispatch:
     # schedule:
     #     - cron: '30 12 * * 1-5'
