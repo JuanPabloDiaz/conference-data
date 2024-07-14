@@ -2,11 +2,10 @@ name: Check links
 
 on:
     pull_request:
-        branches:
-            - test
-    # workflow_dispatch:
-    # schedule:
-    #     - cron: '30 12 * * 1-5'
+        branches: [main]
+    workflow_dispatch:
+    schedule:
+        - cron: '16 2 * * 6'
 
 jobs:
     validate:
