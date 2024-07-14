@@ -29,7 +29,7 @@ jobs:
             - name: Extract URLs from JSON files
               run: |
                   mkdir -p extracted-urls
-                  jq -r '.url' ./conferences/2024/*.json ./conferences/2025/*.json ./conferences/2026/*.json > extracted-urls/urls.txt
+                  jq -r '.. | objects | .url? // empty' ./conferences/2024/*.json ./conferences/2025/*.json ./conferences/2026/*.json > extracted-urls/urls.txt
 
             - name: Link Checker
               id: lychee
