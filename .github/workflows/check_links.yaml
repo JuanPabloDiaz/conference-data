@@ -2,7 +2,7 @@ name: Check links
 
 on:
     pull_request:
-        branches: [test]
+        branches: [main]
     workflow_dispatch:
     schedule:
         - cron: '16 2 * * 6'
@@ -31,25 +31,22 @@ jobs:
                   mkdir -p extracted-urls
                   jq -r '.. | objects | .url? // empty' ./conferences/2024/*.json ./conferences/2025/*.json ./conferences/2026/*.json > extracted-urls/urls.txt
 
-            - name: Link Checker
-              id: lychee
-              uses: lycheeverse/lychee-action@v1.10.0
-              with:
-                  fail: true
-                  args: --verbose --no-progress --list extracted-urls/urls.txt
-                  output: ${{ env.issue-content }}
+            - name: Check URLs with lychee
+              run: |
+                  # Read URLs from file and check each URL
+                  while IFS= read -r url; do
+                    echo "Checking $url"
+                    lychee "$url" --verbose --no-progress || exit 1
+                  done < extracted-urls/urls.txt
 
-            # Permissions (issues: read)
-            - name: 'Look for an existing issue'
-              if: ${{ failure() }}
-              id: last-issue
-              uses: micalevisk/last-issue-action@v2
-              with:
-                  state: open
-                  labels: ${{ env.issue-lookup-label }}
+            - name: Generate report
+              run: |
+                  # Generate report if needed (custom script or use output from lychee)
+                  echo "Generate your report here"
+                  # For example, you can redirect output to a file
+                  lychee --verbose --no-progress extracted-urls/urls.txt > ${{ env.issue-content }}
 
-            # Permissions (issues: write)
-            - name: 'Create a new issue, or update an existing one'
+            - name: Create or Update GitHub Issue
               if: ${{ failure() }}
               uses: peter-evans/create-issue-from-file@v4
               with:
