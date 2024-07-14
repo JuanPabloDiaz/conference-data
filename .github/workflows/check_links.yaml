@@ -18,18 +18,25 @@ jobs:
             issue-content: ./lychee-out.md
         steps:
             - uses: actions/checkout@v4
+
             - name: Restore lychee cache
               uses: actions/cache@v4
               with:
                   path: .lycheecache
                   key: cache-lychee-${{ github.sha }}
                   restore-keys: cache-lychee-
+
+            - name: Extract URLs from JSON files
+              run: |
+                  mkdir -p extracted-urls
+                  jq -r '.url' ./conferences/2024/*.json ./conferences/2025/*.json ./conferences/2026/*.json > extracted-urls/urls.txt
+
             - name: Link Checker
               id: lychee
               uses: lycheeverse/lychee-action@v1.10.0
               with:
                   fail: true
-                  args: --verbose --no-progress './conferences/2024/**/*.json' './conferences/2025/**/*.json' './conferences/2026/**/*.json' --exclude-mail
+                  args: --verbose --no-progress @extracted-urls/urls.txt --exclude-mail
                   output: ${{ env.issue-content }}
 
             # Permissions (issues: read)
@@ -37,7 +44,6 @@ jobs:
               if: ${{ failure() }}
               id: last-issue
               uses: micalevisk/last-issue-action@v2
-              # Find the last updated open issue with a `automated-issue` label:
               with:
                   state: open
                   labels: ${{ env.issue-lookup-label }}
@@ -49,11 +55,7 @@ jobs:
               with:
                   title: 'docs: Broken links found'
                   content-filepath: ${{ env.issue-content }}
-                  # Update an existing issue if one was found (issue_number),
-                  # otherwise an empty value creates a new issue:
                   issue-number: ${{ steps['last-issue']['outputs']['issue-number'] }}
-                  # Add a label(s) that `last-issue` can use to find this issue,
-                  # and any other relevant labels for the issue itself:
                   labels: |
                       ${{ env.issue-lookup-label }}
                       broken-link, docs
