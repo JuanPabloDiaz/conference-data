@@ -2,7 +2,7 @@ name: Check links
 
 on:
     pull_request:
-        branches: [test]
+        branches: [main]
     workflow_dispatch:
     schedule:
         - cron: '16 2 * * 6'
@@ -36,7 +36,7 @@ jobs:
               uses: lycheeverse/lychee-action@v1.10.0
               with:
                   fail: true
-                  args: --verbose --no-progress @extracted-urls/urls.txt --exclude-mail
+                  args: --verbose --no-progress --list extracted-urls/urls.txt
                   output: ${{ env.issue-content }}
 
             # Permissions (issues: read)
